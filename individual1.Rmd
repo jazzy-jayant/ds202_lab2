@@ -1,0 +1,70 @@
+---
+title: "individual1.Rmd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+devtools::install_github('xdaiISU/classdata', force=TRUE)
+library(classdata)
+data(choco)
+matrix
+write.csv(choco, file = "choco.csv") 
+choco <- read.csv("C:\\Users\\Jayant Shah\\OneDrive\\Documents\\ds202_lab2\\choco.csv") 
+
+
+library(dplyr)
+it <- summarise(group_by(choco, Cocoa_Percent), meanRating = mean(Rating))
+plot(it$Cocoa_Percent, it$meanRating)
+
+c <- mean(choco$Cocoa_Percent)
+##plot(c, choco$Rating)
+
+m <- mean(choco$Rating)
+origin <- choco$Bean_Origin
+org <- factor(origin)
+#org
+##boxplot(choco$Rating, org)
+
+med <- median(choco$Cocoa_Percent)
+highpct <- choco[choco$Cocoa_Percent >= med, ]
+lowpct <- choco[choco$Cocoa_Percent < med, ]
+
+
+hist(highpct$Rating)
+hist(lowpct$Rating)
+
+##?plot
+plot(choco$Rating, choco$Bean_origin)
+##?boxplot
+plot(choco$Rating, choco$Cocoa_Percent)
+
+char1head <- head(sort(table(choco$Characteristics1), decreasing = TRUE), 10)
+char2head <- head(sort(table(choco$Characteristics2), decreasing = TRUE), 10)
+char3head <- head(sort(table(choco$Characteristics3), decreasing = TRUE), 10)
+
+#hist(char1head)
+char1l <- c('creamy', 'sandy', 'intense', 'nutty', 'fatty')
+char11 <- choco[choco$Characteristics1 == char1l[1], ]
+char11m <- mean(char11$Rating)
+char12 <- choco[choco$Characteristics1 == char1l[2], ]
+char12m <- mean(char12$Rating)
+char13 <- choco[choco$Characteristics1 == char1l[3], ]
+char13m <- mean(char13$Rating)
+char14 <- choco[choco$Characteristics1 == char1l[4], ]
+char14m <- mean(char14$Rating)
+char15 <- choco[choco$Characteristics1 == char1l[5], ]
+char15m <- mean(char15$Rating)
+
+plotd <- c(char11m, char12m, char13m, char14m, char15m)
+
+barplot(plotd, names.arg = char1l, xlab = 'Top 5 Characteristics', ylab = 'Mean Rating', col = 'brown', main = 'Mean Ratings for the Top 5 Characteristics')
+
+
+
+```
+
+
